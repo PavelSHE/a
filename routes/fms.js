@@ -62,7 +62,7 @@ router.get('/:lat/:long', function(req, res, next) {
         }else{
             _lat = Math.floor(lat);
         }
-        if(Math.ceil(long)- lat < lat - Math.floor(long) ){
+        if(Math.ceil(long)- long < long - Math.floor(long) ){
             _lng = Math.ceil(long);
         }else{
             _lng = Math.floor(long);
