@@ -9,8 +9,9 @@ var distXY = require('./fmDistXY');
 var latlng = require('./fmLatLng');
 var instruction = require('./fmInstruction');
 
-function fmService(lat,lng,p,address,name){
+function fmService(id,lat,lng,p,address,name){
     //geo x , geo y , service radius
+    this.id = id;
     this.name = name;
     this.carsHash = new HashMap();
     this.lat = lat;
@@ -42,6 +43,8 @@ function fmService(lat,lng,p,address,name){
     this.average.literCost = 0;
     this.average.fomeEffectiveCofficientPercent = 0;
     this.average.consamptionPerKmInPercentAboveCruise = 0
+    this.lastCarRemoval = 0;
+    this.locked = false;
 }
 
 
@@ -123,6 +126,8 @@ fmService.prototype.getCars = function getCars(id) {
 };
 
 fmService.prototype.clearCars = function clearCars() {
+    this.locked = true;
+    if (this.id === 0) return;
     clearCars.class = this.constructor.name;
     log(this.address + " cars not updated " + config.clearCarSeconds + " seconds , will be removed");
     var now = new Date().getTime();
@@ -130,15 +135,22 @@ fmService.prototype.clearCars = function clearCars() {
     var me = this;
     this.carsHash.forEach(function carRemove(car,i) {
         carRemove.class = me.constructor.name;
-        if ((was10 - car.stamp)> 0 || car.state === protocol.notServiced){
-            me.removedCars ++;
-            me.removedCarsRegular += parseFloat(car.fuel.cost.regular);
-            me.removedCarsFome += parseFloat(car.fuel.cost.fome);
-            me.removedCarsDistance += parseFloat(car.traveledMeters);
-            me.carsHash.delete(car.id.toUpperCase());
-            log( 'car ' + car.id + ' removed');
+        try{
+            if ((was10 - car.stamp)> 0 || car.state === protocol.notServiced){
+                me.removedCars ++;
+                me.removedCarsRegular += parseFloat(car.fuel.cost.regular);
+                me.removedCarsFome += parseFloat(car.fuel.cost.fome);
+                me.removedCarsDistance += parseFloat(car.traveledMeters);
+                me.carsHash.delete(car.id.toUpperCase());
+                log( 'car ' + car.id + ' removed');
+                me.lastCarRemoval = new Date().getTime();
+            }
+        }
+        catch (e){
+            log(e);
         }
     });
+    this.locked = false;
 };
 
 

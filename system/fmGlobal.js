@@ -7,19 +7,79 @@ var ArrayList = require('arraylist');
 
 function fmGlobal(){
     this.servicesHash = new HashMap();
-    this.currentID = 1;
+    this.currentID = 0;
+    this.locked = false;
+    var me = this;
+
+    var t = setInterval(function () {
+        me.clearServices();
+    },config.serviceMaxIdleSeconds*1000);
 };
 fmGlobal.prototype.constructor = fmGlobal;
 
-fmGlobal.prototype.addService = function addService(geox,geoy,perimeter,address,name) {
-    addService.class= this.constructor.name;
-    var id = this.currentID++;
-    if (address === "")
-        address = config.hosting_service + id;
-    this.servicesHash.set(id,new fmService(geox, geoy, perimeter, address,name));
-    log("fmSID:" + id + " created (" + address + ")");
+
+fmGlobal.prototype.clearServices = function clearServices(){
+    this.locked = true;
+    clearServices.class = this.constructor.name;
+
+    var was10 = new Date().getTime() - config.serviceMaxIdleSeconds*1000;
+    var me = this;
+    this.servicesHash.forEach(function (service) {
+        if (service.id > 0){
+            if((was10 - service.lastCarRemoval)> 0 && service.carsHash.size === 0 && service.locked === false){
+                try {
+                    var stat = me.servicesHash.get(0);
+                    stat.removedCars += service.removedCars;
+                    stat.removedCarsRegular += service.removedCarsRegular;
+                    stat.removedCarsFome += service.removedCarsFome;
+                    stat.removedCarsDistance += service.removedCarsDistance;
+                    stat.carsChanged += service.carsChanged;
+                    stat.average.consamptionPerKmInLiters += service.average.consamptionPerKmInLiters;
+                    stat.average.literCost += service.average.literCost;
+                    stat.average.fomeEffectiveCofficientPercent += service.average.fomeEffectiveCofficientPercent;
+                    stat.average.consamptionPerKmInPercentAboveCruise += service.average.consamptionPerKmInPercentAboveCruise;
+                    log("Service " + service.id + " removed");
+                    me.servicesHash.delete(service.id);
+                }catch (e){
+                    console.log(e);
+                }
+            }
+        }
+    });
+
+    this.locked = false;
 };
 
+
+fmGlobal.prototype.addService = function addService(geox,geoy,perimeter,name,address) {
+    this.locked = true;
+    addService.class= this.constructor.name;
+    var test = false;
+    this.servicesHash.forEach(function (service) {
+       if (service.lat === geox && service.lng === geoy){
+           test = true;
+       }
+    });
+    if (test === true )
+        return;
+
+    var id = this.currentID++;
+    if (name === undefined)
+        name = "AutoCover" + id;
+    if (address === undefined)
+        address = config.hosting_service + id;
+    this.servicesHash.set(id,new fmService(id,geox, geoy, perimeter, address,name));
+    log("fmSID:" + id + " created (" + address + ")");
+    this.locked = false;
+};
+
+// fmGlobal.prototype.addService = function addService(north, south, east,west,name,address) {
+//
+//
+//
+//     this.servicesHash.set(id,new fmService(north, south, east,west,address));
+//
+// };
 
 
 //function returns closest service points
@@ -50,6 +110,22 @@ fmGlobal.prototype.getServers = function getServers(lat , lng) {
     });
     return res;
 };
+fmGlobal.prototype.reset = function reset() {
+    if (this.locked === true )
+        return;
+    reset.class= this.constructor.name;
+    var me = this;
+    this.servicesHash.forEach(function (service, index)
+    {
+        if (service.locked === false) {
+            me.servicesHash.delete(service.id);
+        }
+    });
+
+    me.addService( 1,1,0,"StatisticsServer");
+};
+
+
 fmGlobal.prototype.getAllServers = function getAllServers() {
     getAllServers.class= this.constructor.name;
     var res = new ArrayList();

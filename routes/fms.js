@@ -4,22 +4,26 @@ var log = require('../system/fmLog');
 // var fmService = require('../system/fmService');
 // var HashMap = require('hashmap');
 var fmGlobal = require('../system/fmGlobal');
+var config = require('../system/config.json');
 // 32.119257, 34.836756
 // 31.886633, 34.781138
 
-var globalService = new fmGlobal();
-//adding test services
 
-globalService.addService( 34.988844,32.085227, 115,"",'Center');
-setTimeout(function () {
-    globalService.addService( 34.939775,29.905043, 85,"",'South');
-}, 1500);
-setTimeout(function () {
-    globalService.addService( 35.323262,33.05, 80,"",'North');
-}, 300);
-setTimeout(function () {
-    globalService.addService( 34.863531,30.919769, 120,"",'Beer Sheva');
-}, 300);
+var globalService = new fmGlobal();
+
+globalService.addService( 1,1,0,"StatisticsServer");
+// //adding test services
+//
+// globalService.addService( 34.988844,32.085227, 115,'Center');
+// setTimeout(function () {
+//     globalService.addService( 34.939775,29.905043, 85,'South');
+// }, 1500);
+// setTimeout(function () {
+//     globalService.addService( 35.323262,33.05, 80,'North');
+// }, 300);
+// setTimeout(function () {
+//     globalService.addService( 34.863531,30.919769, 120,'Beer Sheva');
+// }, 300);
 
 
 var router = express.Router();
@@ -46,7 +50,22 @@ router.get('/:lat/:long', function(req, res, next) {
     // fms_requests.next( function(){
     //     res.send(JSON.stringify(fms_requests, null, 3))
     // });
-    res.send(globalService.getServers(req.params.lat, req.params.long));
+    var lat = parseFloat(req.params.lat);
+    var long = parseFloat( req.params.long);
+    var result = [];
+    result = globalService.getServers(lat,long);
+    if (result.length === 0 ){
+        //if not exist will create
+        globalService.addService( Math.ceil(long),Math.ceil(lat), config.serviceCellPerimeter);
+        globalService.addService( Math.floor(long),Math.floor(lat), config.serviceCellPerimeter);
+        globalService.addService( Math.ceil(long),Math.floor(lat), config.serviceCellPerimeter);
+        globalService.addService( Math.floor(long),Math.ceil(lat), config.serviceCellPerimeter);
+        result = globalService.getServers(lat, long);
+    }
+
+    res.send(result);
+
+
 });
 
 
@@ -67,12 +86,27 @@ router.post('/services/:serviceID',function post_services_serviceID(req, res, ne
     //      res.send(null);
     //  }
     // res.send(globalService.servicesHash.get(sid).getCars(req.body.id));
-    res.send(globalService.servicesHash.get(sid).poll(req.body));
+    var t = globalService.servicesHash.get(sid);
+    if (t !== undefined){
+        res.send(globalService.servicesHash.get(sid).poll(req.body));
+    }else{
+        res.send(globalService.servicesHash.get(0).poll(req.body));
+    }
+
+    //res.send(globalService.servicesHash.get(sid).poll(req.body));
+
+
 });
 
 
 router.get('/services/',function(req, res, next){
     res.send(globalService.getAllServers());
+});
+
+
+router.get('/reset/',function(req, res, next){
+    globalService.reset();
+    res.send({"Services #":globalService.servicesHash.size});
 });
 
 router.post('/log/:carID',function(req, res, next){

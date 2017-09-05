@@ -33,11 +33,11 @@ stats.charts.data4 = [['Type','#'],['',''],['','']];
 stats.charts.data5 = [['Type','#'],['',''],['','']];
 stats.charts.data6 = [];
 stats.charts.data7 = [];
-stats.charts.maxDataSize = 50;
+stats.charts.maxDataSize = 40;
 stats.charts.counter = 1;
-stats.charts.updateFrequency = 5;
-stats.charts.updateFrequency6 = 5;
-stats.charts.updateFrequency7 = 5;
+stats.charts.updateFrequency = 1;
+stats.charts.updateFrequency6 = 10;
+stats.charts.updateFrequency7 = 10;
 //tables
 stats.tableA.id = '#statsA';
 stats.tableA.fields = ['Name','Latitude','Longitude','Perimeter','# Live cars','# Removed cars','Drive Regular cost','Drive FoMe cost','SAVINGS','Distance'];
@@ -135,57 +135,57 @@ $( document ).ready(function() {
     poll();
     var t = setInterval(function () {
         poll();
-        // if (stats.charts.counter%stats.charts.updateFrequency === 0){
-        //
-        //     //graphic data
-        //     stats.charts.data2.push([stats.charts.counter,
-        //         //parseFloat(Math.round(stats.total.costRegular*100)/100).toFixed(stats.precision),
-        //         //parseFloat(Math.round(stats.total.costFome*100)/100).toFixed(stats.precision)]);
-        //         parseFloat(stats.total.costRegular),
-        //         parseFloat(stats.total.costFome)]);
-        //     //console.log(stats.charts.data2.toString());
-        //     //drawChart(stats.charts.data);
-        //     //drawChart2(stats.charts.data2);
-        //     if (stats.charts.data2.length > stats.charts.maxDataSize){
-        //         stats.charts.data2.shift();
-        //     }
-        //     //pies data
-        //     stats.charts.data4[1] = ['Running',parseInt(stats.total.carsRunning )];
-        //     stats.charts.data4[2] = ['Removed',parseInt(stats.total.carsRemoved )];
-        //     stats.charts.data5[1] = ['Cars manipulated',parseInt(stats.total.carsChanged )];
-        //     stats.charts.data5[2] = ['Cars only registered',parseInt(stats.total.carsRemoved) + parseInt(stats.total.carsRunning)- parseInt(stats.total.carsChanged )];
-        //
-        //     if (stats.charts.counter%stats.charts.updateFrequency6 === 0){
-        //         stats.charts.data6.push(
-        //             [stats.charts.counter,
-        //                 parseFloat(stats.total.carsRunning),
-        //                 parseFloat(stats.total.carsRemoved)]
-        //         )
-        //         drawChart6(stats.charts.data6);
-        //
-        //     };
-        //
-        //     if (stats.charts.counter%stats.charts.updateFrequency7 === 0){
-        //         stats.charts.data7.push(
-        //             [stats.charts.counter,
-        //                 stats.total.saved*100/stats.total.costRegular]
-        //         )
-        //         drawChart7(stats.charts.data7);
-        //
-        //     };
-        //
-        //
-        //     //drawChart3(stats.charts.data2);
-        //     drawChartOne()
-        //
-        //
-        //     drawPie(stats.charts.data4,'Cars statistics ('+ (parseInt(stats.total.carsRemoved) + parseInt(stats.total.carsRunning)) + ')',stats.charts.id4);
-        //     drawPie(stats.charts.data5,' ',stats.charts.id5);
-        // }
-        // stats.charts.counter++;
+        if (stats.charts.counter%stats.charts.updateFrequency === 0){
+
+            //graphic data
+            stats.charts.data2.push([stats.charts.counter,
+                //parseFloat(Math.round(stats.total.costRegular*100)/100).toFixed(stats.precision),
+                //parseFloat(Math.round(stats.total.costFome*100)/100).toFixed(stats.precision)]);
+                parseFloat(stats.total.costRegular),
+                parseFloat(stats.total.costFome)]);
+            //console.log(stats.charts.data2.toString());
+            //drawChart(stats.charts.data);
+            //drawChart2(stats.charts.data2);
+            if (stats.charts.data2.length > stats.charts.maxDataSize){
+                stats.charts.data2.shift();
+            }
+            //pies data
+            stats.charts.data4[1] = ['Running',parseInt(stats.total.carsRunning )];
+            stats.charts.data4[2] = ['Removed',parseInt(stats.total.carsRemoved )];
+            stats.charts.data5[1] = ['Cars manipulated',parseInt(stats.total.carsChanged )];
+            stats.charts.data5[2] = ['Cars only registered',parseInt(stats.total.carsRemoved) + parseInt(stats.total.carsRunning)- parseInt(stats.total.carsChanged )];
+
+            if (stats.charts.counter%stats.charts.updateFrequency6 === 0){
+                stats.charts.data6.push(
+                    [stats.charts.counter,
+                        parseFloat(stats.total.carsRunning),
+                        parseFloat(stats.total.carsRemoved)]
+                )
+                drawChart6(stats.charts.data6);
+
+            };
+
+            if (stats.charts.counter%stats.charts.updateFrequency7 === 0){
+                stats.charts.data7.push(
+                    [stats.charts.counter,
+                        stats.total.saved*100/stats.total.costRegular]
+                )
+                drawChart7(stats.charts.data7);
+
+            };
+
+
+            //drawChart3(stats.charts.data2);
+            drawChartOne()
+
+
+            drawPie(stats.charts.data4,'Cars statistics ('+ (parseInt(stats.total.carsRemoved) + parseInt(stats.total.carsRunning)) + ')',stats.charts.id4);
+            drawPie(stats.charts.data5,' ',stats.charts.id5);
+        }
+        stats.charts.counter++;
     },stats.pollFrequency);
 
-    //google.charts.load('current', {'packages':['corechart','line']});
+    google.charts.load('current', {'packages':['corechart','line']});
     //google.charts.setOnLoadCallback(drawChart);
 });
 

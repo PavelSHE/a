@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Services Graphs</title>
+    <script
+            src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <!--<script src="https://npmcdn.com/bootstrap@4.0.0-alpha.5/dist/js/bootstrap.min.js"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="../scripts/loader.js"></script>
+    <script type ="text/javascript" src="../scripts/dashboard.js"></script>
+    <script type ="text/javascript" src="../scripts/graphs.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            display: none;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 8px;
+        }
+        td:first-child { width: 10%; text-align: left;}
+        /*td:last-child { width: 80%; }*/
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .jjj{
+            /*display: table-cell;*/
+            display: inline-block;
+        }
+    </style>
+</head>
+<body background="../images/White-Background-9B1.jpg">
+<!--<body background="https://wallpaperbrowse.com/media/images/geo-shapes-black-1280.jpg">-->
+<!--<div id ="statisticsTableA"> https://wallpaperbrowse.com/media/images/White-Background-9B1.jpg-->
+    <!--<table id ="statsA" class=" table table-hover"></table>-->
+<!--</div>-->
+<!--<br>-->
+<!--<div id ="statisticsTableB">-->
+    <!--<table id ="statsB" class=" table table-hover"></table>-->
+<!--</div>-->
+<!--<div id="curve_chart" style=" height: 150px;display: table-cell"></div>-->
+<!--<div id="chart2" style=" height: 150px;display: table-cell"></div>-->
+<!--<div class="card-group">-->
+
+<div id="line_carsRR" class="ml-2 mt-2 jjj"></div>
+<div id="efficiencyAll" class="mr-2 ml-2 mt-2 jjj"></div>
+<br>
+<div id="lineChart" class="ml-2 mt-2 jjj mr-2"></div>
+<div id="pie_carsRR" class="mt-2 jjj"></div>
+<div id="pie_carsRC" class="mt-2 jjj"></div>
+
+
+
+<!--</div>-->
+</body>
+</html>
