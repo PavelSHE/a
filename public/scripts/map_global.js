@@ -19,7 +19,7 @@ var simulationRunning = false;
 
 var randomizationRunning = false;
 var randomizationTick = 300000;//2000;//
-var randomizationMax = 60;
-var randomizationMin = 15;
+var randomizationMax = 30;
+var randomizationMin = 10;
 var randomizationLeft = 0;
 

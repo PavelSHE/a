@@ -55,10 +55,24 @@ router.get('/:lat/:long', function(req, res, next) {
     result = globalService.getServers(lat,long);
     if (result.length === 0 ){
         //if not exist will create
-        globalService.addService( Math.ceil(long),Math.ceil(lat), config.serviceCellPerimeter);
-        globalService.addService( Math.floor(long),Math.floor(lat), config.serviceCellPerimeter);
-        globalService.addService( Math.ceil(long),Math.floor(lat), config.serviceCellPerimeter);
-        globalService.addService( Math.floor(long),Math.ceil(lat), config.serviceCellPerimeter);
+        var _lat = 0;
+        var _lng = 0;
+        if(Math.ceil(lat)- lat < lat - Math.floor(lat) ){
+            _lat = Math.ceil(lat);
+        }else{
+            _lat = Math.floor(lat);
+        }
+        if(Math.ceil(long)- lat < lat - Math.floor(long) ){
+            _lng = Math.ceil(long);
+        }else{
+            _lng = Math.floor(long);
+        }
+
+
+
+
+        globalService.addService( _lng, _lat, config.serviceCellPerimeter);
+
         result = globalService.getServers(lat, long);
     }
 

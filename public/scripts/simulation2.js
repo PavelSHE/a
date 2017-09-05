@@ -197,7 +197,7 @@ function simRoute(start,end,map) {
                     //put marker on start
                     sim_route.startLocation.latlng = sim_route.legs[i].start_location;
                     sim_route.startLocation.address = sim_route.legs[i].start_address;
-                    sim_route.marker = createMarker(sim_route.legs[i].start_location,("ID:"+ sim_route.ID),sim_route.legs[i].start_address);
+                    sim_route.marker = createMarker(sim_route.legs[i].start_location,("ID:"+ sim_route.ID), sim_route.start,sim_route.end, sim_route);
                     //sim_route.marker = createMarker(sim_route.start +">"+sim_route.end,("ID:"+ sim_route.ID),sim_route.legs[i].start_address);
                 }
                 var steps = sim_route.legs[i].steps;
@@ -738,7 +738,7 @@ function simRoute(start,end,map) {
 
     });
 
-    //toDo - should send info to the server and get info from there
+
     this.contactCar = function (carID,next) {
         //var car = null;
         var  me = this;
@@ -804,9 +804,10 @@ function simRoute(start,end,map) {
 
 }
 
-function createMarker(latlng, label, html) {
+function createMarker(latlng, label, start ,end, car) {
 // alert("createMarker("+latlng+","+label+","+html+","+color+")");
-    var contentString = '<b>'+label+'</b><br>'+html;
+    var contentString = '<b>'+label+'</b><br>' +
+            'From ' +  '<u>' + start + '</u> to <u>'  + end  + '</u>' ;
     var icon = {
         url: "/icons/livraison.png", // url
         scaledSize: new google.maps.Size(20, 30), // scaled size
@@ -837,7 +838,8 @@ function createMarker(latlng, label, html) {
 
 
     google.maps.event.addListener(marker, 'click', function() {
-        infowindow.setContent(contentString);
+
+        infowindow.setContent(contentString );
         infowindow.open(map,marker);
     });
     return marker;
