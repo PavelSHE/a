@@ -10,8 +10,7 @@ var config = require('../system/config.json');
 
 
 var globalService = new fmGlobal();
-
-globalService.addService( 1,1,0,"StatisticsServer");
+globalService.reset();
 // //adding test services
 //
 // globalService.addService( 34.988844,32.085227, 115,'Center');

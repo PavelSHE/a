@@ -34,10 +34,10 @@ fmGlobal.prototype.clearServices = function clearServices(){
                     stat.removedCarsFome += service.removedCarsFome;
                     stat.removedCarsDistance += service.removedCarsDistance;
                     stat.carsChanged += service.carsChanged;
-                    stat.average.consamptionPerKmInLiters += service.average.consamptionPerKmInLiters;
-                    stat.average.literCost += service.average.literCost;
-                    stat.average.fomeEffectiveCofficientPercent += service.average.fomeEffectiveCofficientPercent;
-                    stat.average.consamptionPerKmInPercentAboveCruise += service.average.consamptionPerKmInPercentAboveCruise;
+                    stat.average.consamptionPerKmInLiters += (service.average.consamptionPerKmInLiters + stat.average.consamptionPerKmInLiters )/2;
+                    stat.average.literCost += (service.average.literCost + stat.average.literCost)/2;
+                    stat.average.fomeEffectiveCofficientPercent += (service.average.fomeEffectiveCofficientPercent + stat.average.fomeEffectiveCofficientPercent )/2;
+                    stat.average.consamptionPerKmInPercentAboveCruise += (service.average.consamptionPerKmInPercentAboveCruise + stat.average.consamptionPerKmInPercentAboveCruise)/2;
                     log("Service " + service.id + " removed");
                     me.servicesHash.delete(service.id);
                 }catch (e){
@@ -114,15 +114,11 @@ fmGlobal.prototype.reset = function reset() {
     if (this.locked === true )
         return;
     reset.class= this.constructor.name;
-    var me = this;
-    this.servicesHash.forEach(function (service, index)
-    {
-        if (service.locked === false) {
-            me.servicesHash.delete(service.id);
-        }
-    });
+    //var me = this;
+    //
+    this.servicesHash = new HashMap();
 
-    me.addService( 1,1,0,"StatisticsServer");
+    this.addService( 1,1,0,"StatisticsServer");
 };
 
 

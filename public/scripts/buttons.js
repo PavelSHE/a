@@ -124,7 +124,7 @@ function initAutocomplete() {
 }
 
 function drawServiceCoverage(service) {
-    console.log(service);
+    //console.log(service);
     // var distance = service.p * 1000; //in meters
     // var latlng = new google.maps.LatLng(service.x,service.y);
     // ne = google.maps.geometry.spherical.computeOffset(latlng, (distance/2), 0);
@@ -161,6 +161,7 @@ function operateServices(){
             type: "GET",
             url: global_service + "services",
             success: function (data) {
+                console.log( data.length + " services received");
                 data.forEach(function (service) {
                     drawServiceCoverage(service);
                 })
@@ -257,8 +258,8 @@ function demo1() {
 }
 
 function demo2() {
-    var start = 'Geva Carmel, Israel';
-    var end = 'Merkaz Meirav, Israel';
+    var start = 'Or Akiva, Israel';
+    var end = 'Sdot Yam, Israel';
     demo_run(start, end);
 }
 

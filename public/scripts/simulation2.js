@@ -558,11 +558,12 @@ function simRoute(start,end,map) {
         var speed = me.speed.get();
         var minLinear = me.speed.getLinearLower();
         if (speed === cruise){ //drive with cruise speed no affect
-            if (this.fomeFollowing === true){ //only if the car is following
-                used_f = used_r - (used_r/100*(me.fuel.fomeEffectiveCofficientPercent));
-            }else{
+            // if (this.fomeFollowing === true){ //only if the car is following
+            //     used_f = used_r - (used_r/100*(me.fuel.fomeEffectiveCofficientPercent));
+            // }else{
+            //     used_f = used_r;
+            // }
                 used_f = used_r;
-            }
         }else {
             if (speed > cruise){ //drive above cruise speed affect badly
                 var dif = me.speed.get() - me.speed.getCruise(); //speed difference
@@ -576,6 +577,10 @@ function simRoute(start,end,map) {
                     used_f = used_r; // here the loss is in time
                 }
             }
+        }
+
+        if (this.fomeFollowing === true){ //only if the car is following
+            used_f = used_f - (used_f/100*(me.fuel.fomeEffectiveCofficientPercent));
         }
         // if (used_f !== used_r){
         //     me.log("Consumption change: " + (used_r-used_f).toFixed(simCalculationPrecision)+' r:'+ used_r+ ' f:'+ used_f );

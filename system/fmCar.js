@@ -38,6 +38,7 @@ fmCar.prototype.set = function set(car,service) {
     this.fuel = JSON.parse(car.fuel);
     this.traveledMeters = parseInt(car.traveledMeters);
     this.guided = car.guided;
+    this.platoon = JSON.parse(car.platoon);
     //log("fmCarID:" + this.id + " updated, guided:"+this.guided+ " speed:" + this.speed + " distance:" + this.traveledMeters + " fuel cost:" + JSON.stringify(this.fuel.cost) );
     //statistics update
     service.average.consamptionPerKmInLiters = (service.average.consamptionPerKmInLiters)*(1-config.averageRatioNew) +

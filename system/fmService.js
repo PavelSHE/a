@@ -43,7 +43,7 @@ function fmService(id,lat,lng,p,address,name){
     this.average.literCost = 0;
     this.average.fomeEffectiveCofficientPercent = 0;
     this.average.consamptionPerKmInPercentAboveCruise = 0
-    this.lastCarRemoval = 0;
+    this.lastCarRemoval = 50;
     this.locked = false;
 }
 
@@ -357,6 +357,15 @@ fmService.prototype.carTest = function carTest(car2,car1) {
                         leadingCar = car2;
                         followingCar = car1;
                     }
+
+                    //exit
+                    if (leadingCar.platoon.myFollowerID !== 0 ||
+                        followingCar.platoon.myLeaderID !== 0){
+                        log(pair + "Leader and follower marked already");
+                        return false;
+                    }
+
+
 
                     // var gateDistance;
                     // var closestGate;
