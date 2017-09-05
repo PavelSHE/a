@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>FoMe</title>
+
+
+    <script type ="text/javascript" src="../scripts/1.12.4.jquery.min.js"></script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="https://npmcdn.com/bootstrap@4.0.0-alpha.5/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>-->
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?key=AIzaSyDW35l6OImTy7gVR94we26D94UJBCVVJ4o&libraries=places,geometry"></script>
+    <script type ="text/javascript" src="../scripts/v3_epoly.js"></script>
+    <script type="text/javascript" src="../scripts/map_global.js"></script>
+    <script type ="text/javascript" src="../scripts/map.js"></script>
+    <script type ="text/javascript" src="../scripts/buttons.js"></script>
+    <script type ="text/javascript" src="../scripts/simulation2.js"></script>
+    <link rel="stylesheet" href="../stylesheets/map.css">
+</head>
+<body onload="initialize();initAutocomplete()">
+
+<div id="bar">
+    <!--<input id="autoDriveSource" class="controls" type="text" placeholder="Source">-->
+    <!--<input id="autoDriveDestination" class="controls" type="text" placeholder="Destination">-->
+    <!--<button onclick="handleAddSimRouteManual();">Add Simulation</button>-->
+    <!--<button onclick="handleAddSimRouteRandom();">Add Random</button>-->
+    <!--<br>-->
+    <!--<button id="sim_operator" onclick="operateSimulation();">Start Simulation</button>-->
+    <!--<button id="services" onclick="operateServices();">Show Services</button>-->
+    <!--<button onclick="clearData();">Clear</button>-->
+    <!--<button onclick="changeSpeed(-100);">Speed Up</button>-->
+    <!--<button onclick="changeSpeed(100);">Slow Down</button>-->
+    <!--<button onclick="setDefaultSpeed();">Default</button>-->
+    <!--<br>-->
+    <!--<button onclick="demo();">Round Turns</button>-->
+    <!--<button onclick="demo1();">Cost Calculation</button>-->
+    <!--<button onclick="demo2();">Move Between Zones</button>-->
+    <!--<button id="continuos_operator" onclick="continiuosRandomization();">Start Randomization</button>-->
+   <!--<br>-->
+
+
+    <div class="btn-toolbar mb-2 mt-2" role="toolbar" aria-label="Toolbar">
+        <div class="input-group mr-2 ml-2">
+            <span class="input-group-addon" >@</span>
+            <input type="text" class="form-control controls" placeholder="Source" aria-describedby="btnGroupAddon" id="autoDriveSource">
+        </div>
+        <div class="input-group mr-2">
+            <span class="input-group-addon" >@</span>
+            <input type="text" class="form-control" placeholder="Destination" aria-describedby="btnGroupAddon" id="autoDriveDestination">
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <!--<div class="input-group">-->
+            <button type="button" class="btn btn-secondary" onclick="handleAddSimRouteManual();">Add</button>
+            <button type="button" class="btn btn-secondary" onclick="handleAddSimRouteRandom();">Random</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button type="button" class="btn btn-secondary" id="sim_operator" onclick="operateSimulation();">Start</button>
+            <button type="button" class="btn btn-secondary" id="services" onclick="operateServices();">Show Services</button>
+            <button type="button" class="btn btn-secondary" onclick="changeSpeed(-100);">Speed Up</button>
+            <div class="form-control-static btn btn-secondary" id="simSpeed">1000</div>
+            <button type="button" class="btn btn-secondary" onclick="changeSpeed(100);">Slow Down</button>
+            <button type="button" class="btn btn-secondary" onclick="setDefaultSpeed();">Default</button>
+        </div>
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+            <button type="button" class="btn btn-secondary" onclick="demo();">Round Turns</button>
+            <button type="button" class="btn btn-secondary" onclick="demo1();">Cost Calculation</button>
+            <button type="button" class="btn btn-secondary" onclick="demo2();">Move Between Zones</button>
+            <button type="button" class="btn btn-secondary" id="continuos_operator" onclick="continiuosRandomization();">Start Randomizator</button>
+        </div>
+
+    </div>
+    <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+
+    </div>
+
+</div>
+<div id="map_canvas" class="ml-2 mr-2 mb-2" ></div>
+</body>
+</html>

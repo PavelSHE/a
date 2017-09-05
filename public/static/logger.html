@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars log</title>
+    <script type ="text/javascript" src="../scripts/1.12.4.jquery.min.js"></script>
+    <script type ="text/javascript" src="../scripts/logger.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+        td:first-child { width: 10%; }
+        td:last-child { width: 80%; }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div id ="logsTable">
+        <table id ="logs"></table>
+    </div>
+
+</body>
+</html>

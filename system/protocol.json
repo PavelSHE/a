@@ -1,0 +1,8 @@
+{
+  "new":{"message":{"code":0,"split":50,"max":1000},"description":"new car state"},
+  "route":{"message":{"code":2,"split":50,"max":5000},"description":"waiting for car to supply points on route"},
+  "continue":{"message":{"code":4,"continue":0},"description":"continue driving with same speed"},
+  "changeSpeed":{"message":{"code":8,"end":0,"speed":1,"platoonID":0}},
+  "guidedDrive":{"message":{"code":4,"continue":0},"description":"car speed is guided by server"},
+  "notServiced":{"message":{"code":16,"globalService":"http://localhost:3000/fms/"},"description":"car should contact other service"}
+}

@@ -1,0 +1,17 @@
+html{
+    height:100%;}
+body{
+    height:100%;
+    margin:0px;
+    font-family: Helvetica,Arial;
+}
+#map_canvas{
+    width:auto;
+    height:90%;
+}
+#log{
+    width: 100%;
+    rows: '1';
+    font-family: Helvetica,Arial;
+    font-size: medium;
+}

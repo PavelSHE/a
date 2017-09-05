@@ -1,0 +1,14 @@
+{
+  "hosting_service1":"http://localhost:3000/fms/services/",
+  "hosting_service":"/fms/services/",
+  "maxCarsDistance":5000,
+  "distanceVariation":50,
+  "radianLimit":150,
+  "comparingGate":20,
+  "minimalGatesForCalculation":20,
+  "carMaxSpeedUp":10,
+  "carMaintainSame":0,
+  "carMaxSlowDown":-10,
+  "clearCarSeconds":90,
+  "averageRatioNew":0.8
+}
